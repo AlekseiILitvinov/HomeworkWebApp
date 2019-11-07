@@ -1,6 +1,8 @@
 /out/
 /target/
 !.mvn/wrapper/maven-wrapper.jar
+/upload/*
+/apache-tomcat*
 
 ### STS ###
 .apt_generated
@@ -25,4 +27,3 @@
 /nbdist/
 /.nb-gradle/
 
-/upload/*

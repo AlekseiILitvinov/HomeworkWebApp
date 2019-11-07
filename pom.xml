@@ -66,9 +66,9 @@
                                     <destFileName>webapp-runner.jar</destFileName>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>com.apache.tomcat</groupId>
+                                    <groupId>org.apache.tomcat</groupId>
                                     <artifactId>tomcat-dbcp</artifactId>
-                                    <version>9.0.19.0</version>
+                                    <version>9.0.19</version>
                                     <destFileName>tomcat-dbcp.jar</destFileName>
                                 </artifactItem>
                             </artifactItems>
