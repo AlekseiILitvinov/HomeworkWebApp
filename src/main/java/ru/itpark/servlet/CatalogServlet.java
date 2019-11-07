@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class CatalogServlet extends HttpServlet {
     private AutoService autoService;
@@ -33,29 +32,21 @@ public class CatalogServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            req.setAttribute("items", autoService.getAll());
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new ServletException(e);
-        }
+        req.setAttribute("items", autoService.getAll());
         req.getRequestDispatcher("/WEB-INF/catalog.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            final String name = req.getParameter("name");
-            final String description = req.getParameter("description");
-            final Part part = req.getPart("image");
 
-            final String image = fileService.writeFile(part);
+        final String name = req.getParameter("name");
+        final String description = req.getParameter("description");
+        final Part part = req.getPart("image");
 
-            autoService.create(name, description, image);
-            resp.sendRedirect(String.join("/", req.getContextPath(), req.getServletPath()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new ServletException(e);
-        }
+        final String image = fileService.writeFile(part);
+
+        autoService.create(name, description, image);
+        resp.sendRedirect(String.join("/", req.getContextPath(), req.getServletPath()));
+
     }
 }

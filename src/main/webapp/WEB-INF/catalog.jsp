@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><%=item.getName()%>
                             </h5>
-                            <p class="card-text"><%=item.getDescription()%>></p>
+                            <p class="card-text"><%=item.getDescription()%></p>
                         </div>
                     </div>
                 </div>
