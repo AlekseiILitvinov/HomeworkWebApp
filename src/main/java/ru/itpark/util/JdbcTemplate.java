@@ -26,23 +26,23 @@ public class JdbcTemplate {
         }
     }
 
-    public static void executeUpdate(DataSource ds, String sql, String... args) {
+    public static int executeUpdate(DataSource ds, String sql, PreparedStatementSetter setter) {
         try (
                 Connection connection = ds.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)
         ) {
-            int i = 1;
-            for (String arg : args) {
-                if (arg == null) {
-                    throw new IllegalArgumentException("Unexpected null argument in INSERT statement");
+            setter.set(statement).executeUpdate();
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
                 }
-                statement.setString(i++, arg);
+
+                throw new NoGeneratedKeysException("No keys generated");
             }
-            statement.execute();
         } catch (SQLException e) {
             throw new SqlMappingException(e);
         }
     }
-
 
 }
