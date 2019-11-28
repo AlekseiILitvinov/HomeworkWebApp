@@ -38,6 +38,7 @@ public class CatalogServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
 
         final String name = req.getParameter("name");
         final String description = req.getParameter("description");
